@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorIndexFragmentBg"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_map_title"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/colorPrimary"
+        android:drawableLeft="@drawable/btn_services_map3x"
+        android:drawablePadding="@dimen/space_12_dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/space_12_dp"
+        android:text="@string/main_tab_txt2"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_16_sp" />
+
+    <com.baidu.mapapi.map.TextureMapView
+        android:id="@+id/mTexturemap"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </com.baidu.mapapi.map.TextureMapView>
+</LinearLayout>

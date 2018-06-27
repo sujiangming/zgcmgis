@@ -1,0 +1,71 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply GreenDao plugin
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "com.jdry.nmfs"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        greendao {
+            //每次新增表或者新增字段或者删除表，都需要更改这个地方的数值，只认正整数
+            schemaVersion 2
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    //butterknife'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    //智能的刷新控件
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-5'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3-alpha-5'
+    //glide图片加载框架
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //libs
+    compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/fastjson-1.2.2.jar')
+    //add greenDao library
+    compile 'org.greenrobot:greendao:3.2.2'
+    //动态权限
+    compile 'pub.devrel:easypermissions:1.0.1'
+    //leakcanary 内存泄漏检查工具
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //引用仿IOS7底部弹出框
+    compile 'com.baoyz.actionsheet:library:1.1.4'
+    //极光推送
+    implementation files('libs/jcore-android-1.1.8.jar')
+    implementation files('libs/jpush-android-3.1.0.jar')
+
+}

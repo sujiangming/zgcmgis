@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--幼儿园颜色-->
+    <color name="colorPrimary">#264480</color>
+    <color name="colorPrimaryDark">#264480</color>
+    <color name="colorAccent">#264480</color>
+    <color name="colorNavigation">#264480</color>
+    <color name="colorIndexFragmentBg">#E6E6E6</color>
+    <color name="colorIndexFontNormal">#686868 </color>
+    <color name="colorIndexFontPress">#49649A</color>
+    <color name="colorWhiteOpacity">#D9FFFFFF</color>
+    <color name="colorLoginBtnNormal">#264480</color>
+    <color name="colorLoginBtnPress">#7A43A6</color>
+    <color name="colorLoginBtnBorder">#7A43A6</color>
+    <color name="colorParentPress">#FFF6F6</color>
+    <color name="colorBackPress">#33FF9393</color>
+    <color name="color686868">#686868</color>
+    <color name="colorFFF2F2">#FFF2F2</color>
+    <color name="colorFFF6F6">#FAF3FF</color>
+    <color name="color1E1E1E">#1E1E1E</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="choosePressColor">#D2D0CA</color>
+    <color name="color353535">#353535</color>
+    <color name="color80000000">#000000</color>
+    <color name="color4a4a4a">#4a4a4a</color>
+    <color name="colorPrimaryDarkTrans">#CCf57257</color>
+    <color name="color33000000">#33000000</color>
+    <color name="color878787">#878787</color>
+    <color name="color555555">#555555</color>
+    <color name="color9B9B9B">#9B9B9B</color>
+    <color name="colorFAF3FF">#FAF3FF</color>
+    <color name="colorFDFBF3">#FDFBF3</color>
+    <color name="color6B2E9D">#6B2E9D</color>
+    <color name="color4c90bf">#4c90bf</color>
+    <color name="colorFCFAFD">#FCFAFD</color>
+    <color name="colorF6EBFF">#F6EBFF</color>
+    <color name="color4F6BA1">#4F6BA1</color>
+    <color name="color979797">#979797</color>
+</resources>

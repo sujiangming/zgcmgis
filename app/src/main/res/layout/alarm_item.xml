@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/colorWhite">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginBottom="@dimen/space_24_dp"
+        android:layout_marginLeft="@dimen/space_16_dp"
+        android:layout_marginRight="@dimen/space_16_dp"
+        android:layout_marginTop="@dimen/space_20_dp"
+        android:src="@drawable/img_alarm" />
+
+    <TextView
+        android:id="@+id/tv_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_10_dp"
+        android:layout_toRightOf="@id/iv_icon"
+        android:text="告警"
+        android:textColor="@color/color555555"
+        android:textSize="@dimen/font_16_sp" />
+
+    <TextView
+        android:id="@+id/tv_alarm_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/space_16_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_10_dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="已断开"
+        android:textColor="@color/color555555"
+        android:textSize="@dimen/font_16_sp" />
+
+
+    <TextView
+        android:id="@+id/tv_line"
+        android:layout_width="@dimen/space_2_dp"
+        android:layout_height="@dimen/space_18_dp"
+        android:layout_below="@id/tv_alarm"
+        android:layout_marginTop="@dimen/space_16_dp"
+        android:layout_toRightOf="@id/iv_icon"
+        android:background="@color/colorPrimary" />
+
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_alarm"
+        android:layout_marginLeft="@dimen/space_10_dp"
+        android:layout_marginTop="@dimen/space_18_dp"
+        android:layout_toRightOf="@id/tv_line"
+        android:text="2016.02.25  3:34"
+        android:textColor="@color/color878787"
+        android:textSize="@dimen/font_12_sp" />
+
+    <TextView
+        android:id="@+id/tv_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_alarm"
+        android:layout_marginLeft="@dimen/space_10_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_18_dp"
+        android:text="XXXXXX告警单位？"
+        android:textColor="@color/color878787"
+        android:textSize="@dimen/font_12_sp" />
+
+</RelativeLayout>

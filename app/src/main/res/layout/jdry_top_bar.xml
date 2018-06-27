@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/space_44_dp"
+    android:background="@color/colorNavigation">
+
+    <com.jdry.zhcm.mvp.view.custom.RichText
+        android:id="@+id/rtv_top_bar_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_and_set"
+        android:clickable="true"
+        android:drawablePadding="@dimen/space_10_dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/space_16_dp"
+        android:paddingRight="@dimen/space_16_dp"
+        android:text="返回"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_16_sp"
+        app:drawable_height="21dp"
+        app:drawable_src="@drawable/left_arrow"
+        app:drawable_width="@dimen/space_13_dp" />
+
+    <TextView
+        android:id="@+id/tv_top_bar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="标题"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_16_sp" />
+
+</RelativeLayout>

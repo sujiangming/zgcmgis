@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/space_50_dp"
+    android:background="@android:color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/space_20_dp"
+    android:paddingRight="@dimen/space_20_dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_company" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/space_19_dp"
+        android:paddingRight="@dimen/space_10_dp"
+        android:text="xxxxxxxxxx"
+        android:textColor="@color/color555555"
+        android:textSize="@dimen/font_16_sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="告警"
+        android:textColor="@color/color9B9B9B"
+        android:textSize="@dimen/font_12_sp" />
+
+    <TextView
+        android:id="@+id/tv_alarm_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/space_10_dp"
+        android:text="120"
+        android:textColor="@color/colorNavigation"
+        android:textSize="@dimen/font_18_sp" />
+
+    <ImageView
+        android:layout_width="@dimen/space_13_dp"
+        android:layout_height="@dimen/space_13_dp"
+        android:layout_marginLeft="37dp"
+        android:src="@drawable/right_arrow" />
+
+</LinearLayout>
