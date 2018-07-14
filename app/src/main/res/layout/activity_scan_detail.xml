@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/jdry_top_bar"
+        layout="@layout/jdry_top_bar" />
+
+    <TextView
+        android:id="@+id/tv_device_id_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/jdry_top_bar"
+        android:layout_marginLeft="@dimen/space_20_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_20_dp"
+        android:text="编号地址："
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_device_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/jdry_top_bar"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_20_dp"
+        android:layout_toRightOf="@id/tv_device_id_desc"
+        android:text="http://image.so.com/v?q"
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_device_address_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_device_id_desc"
+        android:layout_marginLeft="@dimen/space_20_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:text="设备地址："
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_device_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_device_id_desc"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:layout_toRightOf="@id/tv_device_address_desc"
+        android:text="设备地址："
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_xunjian_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_device_address_desc"
+        android:layout_marginLeft="@dimen/space_20_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:text="巡检人：     "
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_xunjian_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_device_address"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:layout_toRightOf="@id/tv_xunjian_desc"
+        android:text="卜小超"
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_x_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_xunjian_desc"
+        android:layout_marginLeft="@dimen/space_20_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:text="经度：         "
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_x"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_xunjian_name"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:layout_toRightOf="@id/tv_x_desc"
+        android:text="106.980088"
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_y_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_x_desc"
+        android:layout_marginLeft="@dimen/space_20_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:text="纬度：         "
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_y"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_x"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:layout_toRightOf="@id/tv_y_desc"
+        android:text="56.980088"
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+
+    <TextView
+        android:id="@+id/tv_type_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_y_desc"
+        android:layout_marginLeft="@dimen/space_20_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_20_dp"
+        android:text="巡检类型："
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_type_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_y_desc"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:layout_toRightOf="@id/tv_type_desc"
+        android:background="@drawable/gray_with_border_bg"
+        android:paddingBottom="@dimen/space_5_dp"
+        android:paddingLeft="@dimen/space_15_dp"
+        android:paddingRight="@dimen/space_15_dp"
+        android:paddingTop="@dimen/space_5_dp"
+        android:text="巡检"
+        android:textColor="@color/color686868"
+        android:textSize="@dimen/font_12_sp" />
+
+    <TextView
+        android:id="@+id/tv_type_repair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_y_desc"
+        android:layout_marginLeft="@dimen/space_15_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:layout_toRightOf="@id/tv_type_normal"
+        android:background="@drawable/gray_with_border_bg"
+        android:paddingBottom="@dimen/space_5_dp"
+        android:paddingLeft="@dimen/space_15_dp"
+        android:paddingRight="@dimen/space_15_dp"
+        android:paddingTop="@dimen/space_5_dp"
+        android:text="维修"
+        android:textColor="@color/color686868"
+        android:textSize="@dimen/font_12_sp" />
+
+    <TextView
+        android:id="@+id/tv_type_replace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_y_desc"
+        android:layout_marginLeft="@dimen/space_15_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:layout_toRightOf="@id/tv_type_repair"
+        android:background="@drawable/gray_with_border_bg"
+        android:paddingBottom="@dimen/space_5_dp"
+        android:paddingLeft="@dimen/space_15_dp"
+        android:paddingRight="@dimen/space_15_dp"
+        android:paddingTop="@dimen/space_5_dp"
+        android:text="换播"
+        android:textColor="@color/color686868"
+        android:textSize="@dimen/font_12_sp" />
+
+    <TextView
+        android:id="@+id/tv_device_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_type_desc"
+        android:layout_marginLeft="@dimen/space_20_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_20_dp"
+        android:text="设备状态："
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <TextView
+        android:id="@+id/tv_status_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_type_desc"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:layout_toRightOf="@id/tv_device_status"
+        android:background="@drawable/gray_with_border_bg"
+        android:paddingBottom="@dimen/space_5_dp"
+        android:paddingLeft="@dimen/space_15_dp"
+        android:paddingRight="@dimen/space_15_dp"
+        android:paddingTop="@dimen/space_5_dp"
+        android:tag="0"
+        android:text="正常"
+        android:textColor="@color/color686868"
+        android:textSize="@dimen/font_12_sp" />
+
+    <TextView
+        android:id="@+id/tv_status_exception"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_type_desc"
+        android:layout_marginLeft="@dimen/space_15_dp"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:layout_toRightOf="@id/tv_status_normal"
+        android:background="@drawable/gray_with_border_bg"
+        android:paddingBottom="@dimen/space_5_dp"
+        android:paddingLeft="@dimen/space_15_dp"
+        android:paddingRight="@dimen/space_15_dp"
+        android:paddingTop="@dimen/space_5_dp"
+        android:tag="1"
+        android:text="故障"
+        android:textColor="@color/color686868"
+        android:textSize="@dimen/font_12_sp" />
+
+    <TextView
+        android:id="@+id/tv_pic_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_device_status"
+        android:layout_marginLeft="@dimen/space_20_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_20_dp"
+        android:text="上传图片："
+        android:textColor="@color/color353535"
+        android:textSize="@dimen/font_14_sp" />
+
+    <!-- 图片包裹 -->
+    <LinearLayout
+        android:id="@+id/ll_imgs_wrap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_pic_desc"
+        android:layout_marginTop="@dimen/space_15_dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/space_20_dp"
+        android:paddingRight="@dimen/space_20_dp"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_add_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/add_pic" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/jz_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_44_dp"
+        android:layout_below="@id/ll_imgs_wrap"
+        android:layout_marginLeft="@dimen/space_18_dp"
+        android:layout_marginRight="@dimen/space_20_dp"
+        android:layout_marginTop="@dimen/space_30_dp"
+        android:background="@drawable/parent_detail_btn__press_style"
+        android:text="上传"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_16_sp" />
+</RelativeLayout>

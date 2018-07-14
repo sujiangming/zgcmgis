@@ -2,13 +2,12 @@ package com.jdry.zhcm.mvp.view.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.jdry.zhcm.R;
-import com.jdry.zhcm.beans.LoginBean;
-import com.jdry.zhcm.mvp.view.activity.AccountSetActivity;
+import com.jdry.zhcm.mvp.view.activity.AboutActivity;
+import com.jdry.zhcm.mvp.view.activity.AccountSaveActivity;
+import com.jdry.zhcm.mvp.view.activity.LoginActivity;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 
@@ -18,11 +17,6 @@ import butterknife.OnClick;
 
 public class UserFragment extends SjmBaseFragment {
 
-    @BindView(R.id.tv_account)
-    TextView tvAccount;
-    @BindView(R.id.tv_user_name)
-    TextView tvUserName;
-
     @Override
     public int getResourceId() {
         return R.layout.fragment_user;
@@ -30,22 +24,20 @@ public class UserFragment extends SjmBaseFragment {
 
     @Override
     protected void onCreateViewByMe(Bundle savedInstanceState) {
-        LoginBean loginBean = LoginBean.getInstance();
-        if (loginBean == null) {
-            return;
-        }
-        tvAccount.setText(loginBean.getUsername() == null ? "未知" : loginBean.getUsername());
-        tvUserName.setText(loginBean.getcName() == null ? "未知" : loginBean.getcName());
+
     }
 
-    @OnClick({R.id.iv_set, R.id.rl_set})
+    @OnClick({R.id.tv_logout, R.id.ll_account_safe, R.id.ll_wish_report})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_set:
-                openNewActivity(AccountSetActivity.class);
+            case R.id.tv_logout:
+                openNewActivity(LoginActivity.class);
                 break;
-            case R.id.rl_set:
-                openNewActivity(AccountSetActivity.class);
+            case R.id.ll_account_safe:
+                openNewActivity(AccountSaveActivity.class);
+                break;
+            case R.id.ll_wish_report:
+                openNewActivity(AboutActivity.class);
                 break;
         }
     }

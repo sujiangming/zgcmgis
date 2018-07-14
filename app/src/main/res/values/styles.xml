@@ -33,7 +33,7 @@
 
     <!--启动欢迎页-->
     <style name="AppWelcome" parent="jdryStyle">
-        <item name="android:windowBackground">@drawable/start_app</item>
+        <item name="android:windowBackground">@drawable/launcher_bg</item>
     </style>
 
     <!-- iOS7 Style -->
@@ -50,6 +50,20 @@
         <item name="otherButtonSpacing">0dp</item>
         <item name="cancelButtonMarginTop">10dp</item>
         <item name="actionSheetTextSize">12sp</item>
+    </style>
+
+    <!--Dialog全屏样式-->
+    <style name="Dialog_Fullscreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <item name="android:windowContentOverlay">@null</item><!--内容覆盖 -->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog
+        </item><!-- 窗口样式Dialog -->
+        <item name="android:backgroundDimEnabled">true</item><!--模糊-->
     </style>
 
 </resources>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_bg_radius_8_dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/no"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_40_dp"
+        android:layout_below="@id/message"
+        android:background="@drawable/menu_tap_bg"
+        android:gravity="center"
+        android:paddingLeft="@dimen/space_50_dp"
+        android:paddingRight="@dimen/space_50_dp"
+        android:text="查看详情"
+        android:textColor="@color/color979797"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/yes"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_40_dp"
+        android:background="@drawable/menu_tap_bg"
+        android:gravity="center"
+        android:paddingLeft="@dimen/space_50_dp"
+        android:paddingRight="@dimen/space_50_dp"
+        android:text="修改位置"
+        android:textColor="@color/color979797"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/nav"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_40_dp"
+        android:background="@drawable/menu_tap_bg"
+        android:gravity="center"
+        android:paddingLeft="@dimen/space_50_dp"
+        android:paddingRight="@dimen/space_50_dp"
+        android:text="是否导航"
+        android:textColor="@color/color979797"
+        android:textSize="16sp" />
+</LinearLayout>

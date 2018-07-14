@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">令克定位</string>
-    <string name="main_tab_txt1">资产</string>
-    <string name="main_tab_txt2">地图</string>
-    <string name="main_tab_txt3">告警</string>
+    <string name="app_name">中声传媒个人助手</string>
+    <string name="main_tab_txt2">首页</string>
+    <string name="main_tab_txt3">巡检</string>
     <string name="main_tab_txt4">我的</string>
     <string name="login_btn_name">登   录</string>
     <string name="login_forget_pwd">忘记密码</string>

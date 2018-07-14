@@ -2,16 +2,11 @@ package com.jdry.zhcm.mvp.view.activity;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,13 +14,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
 import com.jdry.zhcm.R;
-import com.jdry.zhcm.jpush.ExampleUtil;
-import com.jdry.zhcm.jpush.Logger;
-import com.jdry.zhcm.mvp.view.fragment.AlarmFragment;
-import com.jdry.zhcm.mvp.view.fragment.HomeFragment;
+import com.jdry.zhcm.beans.JingWeidu;
+import com.jdry.zhcm.global.JDRYDYApplication;
 import com.jdry.zhcm.mvp.view.fragment.MapFragment;
+import com.jdry.zhcm.mvp.view.fragment.ScanFragment;
 import com.jdry.zhcm.mvp.view.fragment.UserFragment;
+import com.jdry.zhcm.rxbus.RxBus;
+import com.jdry.zhcm.service.LocationService;
 import com.jdry.zhcm.utils.AppManager;
 
 import java.util.ArrayList;
@@ -40,16 +38,10 @@ import butterknife.OnClick;
 public class MainActivity extends SjmBaseActivity {
     @BindView(R.id.ll_fragment_container)
     LinearLayout llFragmentContainer;
-    @BindView(R.id.iv_home)
-    ImageView ivHome;
-    @BindView(R.id.tv_home)
-    TextView tvHome;
     @BindView(R.id.tv_jz)
     TextView tvJz;
     @BindView(R.id.tv_my)
     TextView tvMy;
-    @BindView(R.id.ll_home)
-    LinearLayout llHome;
     @BindView(R.id.iv_live)
     ImageView ivLive;
     @BindView(R.id.tv_live)
@@ -67,37 +59,16 @@ public class MainActivity extends SjmBaseActivity {
     @BindView(R.id.iv_msg)
     ImageView ivMsg;
 
-    @OnClick({R.id.ll_home, R.id.ll_live, R.id.ll_lesson, R.id.ll_user})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_home:
-                changeNavStyle(view);
-                changeIndexTextViewColor(0);
-                break;
-            case R.id.ll_live:
-                changeNavStyle(view);
-                changeIndexTextViewColor(1);
-                break;
-            case R.id.ll_lesson:
-                changeNavStyle(view);
-                changeIndexTextViewColor(2);
-                break;
-            case R.id.ll_user:
-                changeNavStyle(view);
-                changeIndexTextViewColor(3);
-                break;
-        }
-    }
+    public static boolean isForeground = false;
 
     private FragmentManager fragmentManager;
-    private AlarmFragment lectureFragment = null;
-    private HomeFragment homeFragment = null;
+    private ScanFragment lectureFragment = null;
     private UserFragment userFragment = null;
     private MapFragment liveVideoFragment = null;
-    private ImageView[] imageViews = new ImageView[4];
-    private TextView[] textViews = new TextView[4];
-    private int[] imageViewNormalRes = {R.drawable.index_1_normal, R.drawable.index_2_normal, R.drawable.index_3_normal, R.drawable.index_4_normal};
-    private int[] imageViewChangeRes = {R.drawable.index_1_press, R.drawable.index_2_press, R.drawable.index_3_press, R.drawable.index_4_press};
+    private ImageView[] imageViews = new ImageView[3];
+    private TextView[] textViews = new TextView[3];
+    private int[] imageViewNormalRes = {R.drawable.map_mark_gray, R.drawable.mark_gray, R.drawable.user_gray};
+    private int[] imageViewChangeRes = {R.drawable.map_mark_blue, R.drawable.mark_blue, R.drawable.user_blue};
 
     private int index = 0;
 
@@ -111,7 +82,6 @@ public class MainActivity extends SjmBaseActivity {
         fragmentManager = getSupportFragmentManager();
         initFragments();
         getPersimmions();
-        registerMessageReceiver();  // used for receive msg
     }
 
     private void initFragments() {
@@ -120,74 +90,66 @@ public class MainActivity extends SjmBaseActivity {
         changeFragment(index);//显示主页
     }
 
+    private LocationService locationService;
+    /*****
+     *
+     * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
+     *
+     */
+    private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+                //打印当前位置信息
+                //JDRYUtils.getLocationInfo(location);
+                //判断是否已经获得到当前的坐标
+                if (Double.isNaN(location.getLatitude()) && Double.isNaN(location.getLongitude())) {
+                    return;
+                }
+                JingWeidu jingWeidu = JDRYDYApplication.getDaoSession().getJingWeiduDao().queryBuilder().unique();
+                if (null != jingWeidu) {
+                    if (!jingWeidu.getCityName().equals(location.getCity())) {
+                        jingWeidu.setCityName(location.getCity());
+                        JDRYDYApplication.getDaoSession().getJingWeiduDao().insertOrReplace(jingWeidu);
+                        post(jingWeidu);
+                    }
+                    return;
+                }
+                jingWeidu = new JingWeidu();
+                jingWeidu.setUid(1);
+                jingWeidu.setCityName(location.getCity());
+                jingWeidu.setX(location.getLongitude());
+                jingWeidu.setY(location.getLatitude());
+                JDRYDYApplication.getDaoSession().getJingWeiduDao().insertOrReplace(jingWeidu);
+                post(jingWeidu);
+
+            }
+        }
+    };
+
+    @OnClick({R.id.ll_live, R.id.ll_lesson, R.id.ll_user})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_live:
+                changeNavStyle(view);
+                changeIndexTextViewColor(0);
+                break;
+            case R.id.ll_lesson:
+                changeNavStyle(view);
+                changeIndexTextViewColor(1);
+                break;
+            case R.id.ll_user:
+                changeNavStyle(view);
+                changeIndexTextViewColor(2);
+                break;
+        }
+    }
+
     private void initImageViews() {
-        imageViews[0] = ivHome;
-        imageViews[1] = ivLive;
-        imageViews[2] = ivTabLecture;
-        imageViews[3] = ivTabUser;
-    }
-
-    private void initTextViews() {
-        textViews[0] = tvHome;
-        textViews[1] = tvLive;
-        textViews[2] = tvJz;
-        textViews[3] = tvMy;
-    }
-
-    private void changeFragment(int indexTmp) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        hideFragments(transaction);
-        switch (indexTmp) {
-            case 0:
-                if (null == homeFragment) {
-                    homeFragment = new HomeFragment();
-                    transaction.add(R.id.ll_fragment_container, homeFragment, "homeFragment");
-                } else {
-                    transaction.show(homeFragment);
-                }
-
-                break;
-            case 1:
-                if (null == liveVideoFragment) {
-                    liveVideoFragment = new MapFragment();
-                    transaction.add(R.id.ll_fragment_container, liveVideoFragment, "liveVideoFragment");
-                } else {
-                    transaction.show(liveVideoFragment);
-                }
-                break;
-            case 2:
-                if (null == lectureFragment) {
-                    lectureFragment = new AlarmFragment();
-                    transaction.add(R.id.ll_fragment_container, lectureFragment, "lectureFragment");
-                } else {
-                    transaction.show(lectureFragment);
-                }
-                break;
-            case 3:
-                if (null == userFragment) {
-                    userFragment = new UserFragment();
-                    transaction.add(R.id.ll_fragment_container, userFragment, "userFragment");
-                } else {
-                    transaction.show(userFragment);
-                }
-                break;
-        }
-        transaction.commit();
-    }
-
-    private void hideFragments(FragmentTransaction transaction) {
-        if (null != homeFragment) {
-            transaction.hide(homeFragment);
-        }
-        if (null != liveVideoFragment) {
-            transaction.hide(liveVideoFragment);
-        }
-        if (null != lectureFragment) {
-            transaction.hide(lectureFragment);
-        }
-        if (null != userFragment) {
-            transaction.hide(userFragment);
-        }
+        imageViews[0] = ivLive;
+        imageViews[1] = ivTabLecture;
+        imageViews[2] = ivTabUser;
     }
 
     private void changeNavStyle(View view) {
@@ -236,36 +198,42 @@ public class MainActivity extends SjmBaseActivity {
     private String permissionInfo;
     private final int SDK_PERMISSION_REQUEST = 127;
 
-    @TargetApi(26)
-    private void getPersimmions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ArrayList<String> permissions = new ArrayList<String>();
-            /***
-             * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
-             */
-            // 定位精确位置
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-            }
-            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-            }
-            /*
-             * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
-			 */
-            // 读写权限
-            if (addPermission(permissions, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                permissionInfo += "Manifest.permission.WRITE_EXTERNAL_STORAGE Deny \n";
-            }
-            // 读取电话状态权限
-            if (addPermission(permissions, Manifest.permission.READ_PHONE_STATE)) {
-                permissionInfo += "Manifest.permission.READ_PHONE_STATE Deny \n";
-            }
+    private void initTextViews() {
+        textViews[0] = tvLive;
+        textViews[1] = tvJz;
+        textViews[2] = tvMy;
+    }
 
-            if (permissions.size() > 0) {
-                requestPermissions(permissions.toArray(new String[permissions.size()]), SDK_PERMISSION_REQUEST);
-            }
+    private void changeFragment(int indexTmp) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        hideFragments(transaction);
+        switch (indexTmp) {
+            case 0:
+                if (null == liveVideoFragment) {
+                    liveVideoFragment = new MapFragment();
+                    transaction.add(R.id.ll_fragment_container, liveVideoFragment, "liveVideoFragment");
+                } else {
+                    transaction.show(liveVideoFragment);
+                }
+                break;
+            case 1:
+                if (null == lectureFragment) {
+                    lectureFragment = new ScanFragment();
+                    transaction.add(R.id.ll_fragment_container, lectureFragment, "lectureFragment");
+                } else {
+                    transaction.show(lectureFragment);
+                }
+                break;
+            case 2:
+                if (null == userFragment) {
+                    userFragment = new UserFragment();
+                    transaction.add(R.id.ll_fragment_container, userFragment, "userFragment");
+                } else {
+                    transaction.show(userFragment);
+                }
+                break;
         }
+        transaction.commit();
     }
 
     @TargetApi(26)
@@ -289,8 +257,55 @@ public class MainActivity extends SjmBaseActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    private void hideFragments(FragmentTransaction transaction) {
+        if (null != lectureFragment) {
+            transaction.hide(lectureFragment);
+        }
+        if (null != liveVideoFragment) {
+            transaction.hide(liveVideoFragment);
+        }
+        if (null != userFragment) {
+            transaction.hide(userFragment);
+        }
+    }
 
-    public static boolean isForeground = false;
+    @TargetApi(26)
+    private void getPersimmions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ArrayList<String> permissions = new ArrayList<String>();
+            /***
+             * 定位权限为必须权限，用户如果禁止，则每次进入都会申请
+             */
+            // 定位精确位置
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            }
+            if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            /*
+             * 读写权限和电话状态权限非必要权限(建议授予)只会申请一次，用户同意或者禁止，只会弹一次
+             */
+            // 读写权限
+            if (addPermission(permissions, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                permissionInfo += "Manifest.permission.WRITE_EXTERNAL_STORAGE Deny \n";
+            }
+            // 读取电话状态权限
+            if (addPermission(permissions, Manifest.permission.READ_PHONE_STATE)) {
+                permissionInfo += "Manifest.permission.READ_PHONE_STATE Deny \n";
+            }
+
+            if (permissions.size() > 0) {
+                requestPermissions(permissions.toArray(new String[permissions.size()]), SDK_PERMISSION_REQUEST);
+            }
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getLocation();
+    }
 
     @Override
     protected void onResume() {
@@ -308,46 +323,26 @@ public class MainActivity extends SjmBaseActivity {
 
     @Override
     protected void onDestroy() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
         super.onDestroy();
     }
 
-    //for receive customer msg from jpush server
-    private MessageReceiver mMessageReceiver;
-    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_MESSAGE = "message";
-    public static final String KEY_EXTRAS = "extras";
-
-    public void registerMessageReceiver() {
-        mMessageReceiver = new MessageReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
-        filter.addAction(MESSAGE_RECEIVED_ACTION);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+    @Override
+    protected void onStop() {
+        locationService.unregisterListener(mListener); //注销掉监听
+        locationService.stop(); //停止定位服务
+        super.onStop();
     }
 
-    public class MessageReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
-                    String messge = intent.getStringExtra(KEY_MESSAGE);
-                    String extras = intent.getStringExtra(KEY_EXTRAS);
-                    StringBuilder showMsg = new StringBuilder();
-                    showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
-                    if (!ExampleUtil.isEmpty(extras)) {
-                        showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
-                    }
-                    setCostomMsg(showMsg.toString());
-                }
-            } catch (Exception e) {
-            }
-        }
+    private void getLocation() {
+        locationService = ((JDRYDYApplication) getApplication()).locationService;
+        locationService.registerListener(mListener); //注册监听
+        locationService.setLocationOption(locationService.getOption());
+        locationService.start();// 定位SDK
     }
 
-    private void setCostomMsg(String msg) {
-        Logger.d("main_activity:", msg);
+    private void post(JingWeidu jingWeidu) {
+        RxBus.getDefault().post(jingWeidu);
     }
+
+
 }

@@ -1,16 +1,12 @@
 package com.jdry.zhcm.http;
 
+
 import com.jdry.zhcm.BuildConfig;
-import com.jdry.zhcm.beans.LoginBean;
 import com.jdry.zhcm.global.JDRYDYConstants;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -20,15 +16,11 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  */
 
 public class RetrofitUtil {
-    public static final int DEFAULT_TIMEOUT = 15;
+    public static final int DEFAULT_TIMEOUT = 30;
+
     public Retrofit mRetrofit;
 
-    private static RetrofitUtil mInstance;
-
-    /**
-     * 私有构造方法
-     */
-    private RetrofitUtil() {
+    public RetrofitUtil() {
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 
@@ -36,42 +28,22 @@ public class RetrofitUtil {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         }
 
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.retryOnConnectionFailure(true)//连接失败后是否重新连接
+        //可以利用okhttp实现缓存
+        OkHttpClient client = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)//连接失败后是否重新连接
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request().newBuilder()
-                                //.addHeader("Content-Type", "application/json; charset=UTF-8")
-                                //.addHeader("Accept-Encoding", "gzip, deflate")
-                                .addHeader("Connection", "keep-alive")
-                                .addHeader("Accept", "*/*")
-                                .addHeader("Authorization", LoginBean.getInstance().getToken() == null ? "" : "BasicAuth " + LoginBean.getInstance().getToken())
-                                .build();
+                .addInterceptor(logging)
+                .build();
 
-                        return chain.proceed(request);
-                    }
-                }).addInterceptor(logging);
-
+        //创建retrofit对象
         mRetrofit = new Retrofit.Builder()
-                .client(builder.build())
+                .client(client)
                 .baseUrl(JDRYDYConstants.HOST)
-                //在此处声明使用FastJsonConverter做为转换器
-                .addConverterFactory(FastJsonConverterFactory.create())
+                .addConverterFactory(FastJsonConverterFactory.create())//在此处声明使用FastJsonConverter做为转换器
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-    }
-
-    public static RetrofitUtil getInstance() {
-        if (mInstance == null) {
-            synchronized (RetrofitUtil.class) {
-                mInstance = new RetrofitUtil();
-            }
-        }
-        return mInstance;
     }
 
     public <T> T createReq(Class<T> reqServer) {

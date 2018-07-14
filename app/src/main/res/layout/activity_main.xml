@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
     <!--主页面-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/ll_home"
+                android:id="@+id/ll_live"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -47,40 +47,11 @@
                 android:tag="0">
 
                 <ImageView
-                    android:id="@+id/iv_home"
-                    android:layout_width="@dimen/space_20_dp"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/index_1_press" />
-
-                <TextView
-                    android:id="@+id/tv_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:gravity="center"
-                    android:text="@string/main_tab_txt1"
-                    android:textColor="@color/colorIndexFontPress"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_live"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="?android:attr/selectableItemBackground"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:tag="1">
-
-                <ImageView
                     android:id="@+id/iv_live"
                     android:layout_width="@dimen/space_20_dp"
                     android:layout_height="@dimen/space_20_dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/index_2_normal" />
+                    android:src="@drawable/map_mark_blue" />
 
                 <TextView
                     android:id="@+id/tv_live"
@@ -100,7 +71,7 @@
                 android:layout_weight="1"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:tag="2">
+                android:tag="1">
 
                 <ImageView
                     android:id="@+id/iv_tab_lecture"
@@ -108,7 +79,7 @@
                     android:layout_height="@dimen/space_20_dp"
                     android:layout_centerHorizontal="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/index_3_normal" />
+                    android:src="@drawable/mark_gray" />
 
                 <TextView
                     android:id="@+id/tv_jz"
@@ -140,14 +111,14 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:tag="3">
+                android:tag="2">
 
                 <ImageView
                     android:id="@+id/iv_tab_user"
                     android:layout_width="@dimen/space_20_dp"
                     android:layout_height="@dimen/space_20_dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/index_4_normal" />
+                    android:src="@drawable/user_gray" />
 
                 <TextView
                     android:id="@+id/tv_my"

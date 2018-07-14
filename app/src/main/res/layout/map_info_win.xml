@@ -3,5 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="@dimen/space_12_dp"
-    android:textColor="@color/colorFDFBF3"
+    android:background="@color/color2fa2cb"
+    android:textColor="@color/colorWhite"
     android:textSize="@dimen/font_14_sp"></TextView>

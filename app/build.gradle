@@ -5,7 +5,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
-        applicationId "com.jdry.nmfs"
+        applicationId "com.jdry.zhcm"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
@@ -19,7 +19,7 @@ android {
         }
         greendao {
             //每次新增表或者新增字段或者删除表，都需要更改这个地方的数值，只认正整数
-            schemaVersion 2
+            schemaVersion 4
         }
     }
     lintOptions {
@@ -27,6 +27,18 @@ android {
         // Or, if you prefer, you can continue to check for errors in release builds,
         // but continue the build even when errors are found:
         abortOnError false
+    }
+
+    repositories {
+        flatDir {
+            dir 'libs'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
     }
 }
 
@@ -64,8 +76,12 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     //引用仿IOS7底部弹出框
     compile 'com.baoyz.actionsheet:library:1.1.4'
-    //极光推送
-    implementation files('libs/jcore-android-1.1.8.jar')
-    implementation files('libs/jpush-android-3.1.0.jar')
+
+    //打开相册加载框架
+    compile 'cn.finalteam:galleryfinal:1.4.8.7'
+    compile 'com.android.support:support-v4:26.1.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    //add ZXing
+    //implementation 'cn.bingoogolapple:bga-qrcode-zbar:1.2.1'
 
 }
